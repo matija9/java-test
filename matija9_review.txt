@@ -1,0 +1,58 @@
+KRUŽNICA:
+4,5,6: Članske varijable bi trebale bit private, a ne public. Dotaknut ću se toga sutra.
+
+5,6: Koliko je, hm, potrebno imat članske varijable za opseg i površinu? Teoretski može imat smisla ako bi njihov izračun bio neka turbokompleksna matematička operacija koja je računski zahtjevna u vražju mater, ali ovdje je elegantnije rješenje jednostavno imat metode (ponavljam - fensi naziv za funkcije u OO paradigmi) koje vraćaju opseg, odnosno površinu za taj objekt.
+
+8: konstruktor kao takav u redu, ali opet je malo bedasto to s opsegom i površinom.
+
+To kaj si napisao funkcionira, ali nekak nije baš u duhu paradigme. Bolje rješenje:
+
+public class Kruznica {
+	public double r; // i to je jedina članska varijabla
+
+	// Konstruktor jednostavno postavlja predani radijus za vrijednost članske varijable "r":
+	public Kruznica(double r){
+		this.r = r;
+	}
+
+	/* getteri i setteri za r */
+	
+	// bolje rješenje za računanje opsega:	
+	public double opseg(){
+		return 2*this.r*Math.PI;
+	
+	// analogno tome za površinu
+
+
+PRAVOKUTNIK:
+Slični komentari kao i za kružnicu - članske bi varijable trebale bit samo svojstva pravokutnika - dakle, duljine stranica - ne i nešto kaj se iz tih svojstava računa. Također, trebale bi bit privatne. Dakle, konstruktor:
+
+	public Pravokutnik(double a, double b){
+		this.a = a;
+		this.b = b;
+	}
+
+Ostalo analogno kružnici.
+
+TROKUT:
+Ista stvar - privatne članske varijable a,b,c, dok se opseg i površina ne spremaju nego su povratna vrijednost metode koja ih računa.
+
+
+MAIN:
+Uh, šakom u glavu s JavaFX-om, a? Nisam to mislio baš, bolje počet od lakšeg i jednostavnijeg maina :D
+
+Dakle, pod pretpostavkom da se sve klase nalaze u istom paketu (u ovom slučaju "application"), main klasa bi bez JavaFX-a izgledala ovako nekako:
+
+public class Demo {
+	public static void main(String[] args) {
+		Trokut trokut = new Trokut(3, 4, 5);
+		Pravokutnik pravokutnik = new Pravokutnik(2, 7);
+		Kruznica kruznica = new Kruznica(4);
+
+		System.out.println("Opseg trokuta = " + trokut.opseg());
+		System.out.println("Opseg pravokutnika = " + pravokutnik.opseg());
+		System.out.println("Opseg kruznica = " + kruznica.opseg());
+	}
+}
+
+
